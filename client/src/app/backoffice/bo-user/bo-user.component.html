@@ -1,0 +1,140 @@
+<div class="navbar" [ngStyle]="{'background-color': getColorNav(user.isVerify)}">
+  <div class="navbar-item">
+    <a>Имя: {{user?.name}} {{user?.surname}}</a>
+  </div>
+  <div class="navbar-item">
+	<a>Заявка: {{statuses[user.documents.status]}}</a>
+  </div>
+  <div class="navbar-item">
+    <a>Стутус: {{user?.isVerify ? 'Подтвержден' : 'Не подтвержден'}}</a>
+	</div>
+	<a (click)="logOut()">Выход</a>
+</div>
+
+<div class="content" *ngIf="!user?.isVerify">
+	<div>
+		<mat-accordion>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header [ngStyle]="{'background-color': getClass('info')}">
+					<mat-panel-title>
+						Личная информация
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+					
+				<mat-form-field style="margin-right: 20px;">
+				<input matInput placeholder="Имя" [(ngModel)]="user.name">
+				</mat-form-field>
+		
+				<mat-form-field>
+				<input matInput placeholder="Фамилия" [(ngModel)]="user.surname">
+				</mat-form-field>
+			</mat-expansion-panel>
+
+			<mat-expansion-panel>
+				<mat-expansion-panel-header [ngStyle]="{'background-color': getClass('main')}">
+					<mat-panel-title>
+						Фото документов
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+
+				<mat-card>
+					<mat-card-header>
+							<mat-card-title>Фото паспорта</mat-card-title>
+						</mat-card-header>
+						<div *ngFor="let item of user.documents.passport.files" class="image-container">
+								<span class="comment">{{item.comment}}</span>
+								<img mat-card-image [src]="item.img">
+								<div class="layer"></div>
+							</div>
+						<mat-card-content *ngIf="!user.documents.passport.files.length || user.documents.passport.status === 1">
+							<input type="file" (change)="updloadFile($event, 'passport')" accept="image/x-png,image/jpeg">
+						</mat-card-content>
+				</mat-card>
+				<div class="layer"></div>
+
+				<mat-card>
+					<mat-card-header>
+							<mat-card-title>Фото водительского удостоверения</mat-card-title>
+						</mat-card-header>
+						<div *ngFor="let item of user.documents.drivingLicense.files" class="image-container">
+							<span class="comment">{{item.comment}}</span>
+							<img mat-card-image [src]="item.img">
+							<div class="layer"></div>
+						</div>
+						<mat-card-content *ngIf="!user.documents.drivingLicense.files.length || user.documents.drivingLicense.status === 1">
+								<input type="file" (change)="updloadFile($event, 'drivingLicense')" accept="image/x-png,image/jpeg">
+						</mat-card-content>
+				</mat-card>
+				<div class="layer"></div>
+
+				<mat-card>
+					<mat-card-header>
+							<mat-card-title>Селфи крупно</mat-card-title>
+						</mat-card-header>
+						<div *ngFor="let item of user.documents.selfie.files" class="image-container">
+								<span class="comment">{{item.comment}}</span>
+								<img mat-card-image [src]="item.img">
+								<div class="layer"></div>
+							</div>
+						<mat-card-content *ngIf="!user.documents.selfie.files.length || user.documents.selfie.status === 1">
+								<input type="file" (change)="updloadFile($event, 'selfie')" accept="image/x-png,image/jpeg">
+						</mat-card-content>
+				</mat-card>
+
+			</mat-expansion-panel>
+
+			<mat-expansion-panel>
+				<mat-expansion-panel-header [ngStyle]="{'background-color': getClass('control')}">
+					<mat-panel-title>
+						Фото с контрольной информацией
+					</mat-panel-title>
+					</mat-expansion-panel-header>
+
+					<mat-card>
+							<mat-card-header>
+									<mat-card-title>Cелфи с паспортом и контрольной информацией: {{user?.documents?.controlInfo?.text}}, которую нужно распечатать или выписать на бумажку и поместить в кадре {{user?.documents?.controlInfo?.place}}</mat-card-title>
+								</mat-card-header>
+								<div *ngFor="let item of user.documents.controlSelfie.files" class="image-container">
+									<span class="comment">{{item.comment}}</span>
+									<img mat-card-image [src]="item.img">
+									<div class="layer"></div>
+								</div>
+								<mat-card-content *ngIf="!user.documents.controlSelfie.files.length || user.documents.controlSelfie.status === 1">
+										<input type="file" (change)="updloadFile($event, 'controlSelfie')" accept="image/x-png,image/jpeg">
+								</mat-card-content>
+						</mat-card>
+			
+			</mat-expansion-panel>
+
+			<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title>
+							Дополнительные документы
+						</mat-panel-title>
+						</mat-expansion-panel-header>
+						
+						<div *ngFor="let item of user.documents.additional.files">
+							<mat-card>
+								<mat-card-header>
+										<mat-card-title></mat-card-title>
+								</mat-card-header>
+								<img *ngIf="item.img" mat-card-image [src]="item.img">
+								<mat-card-content>
+								</mat-card-content>
+							</mat-card>
+							<div class="layer"></div>
+						</div>
+						
+						<div class="layer"></div>
+						<input type="file" (change)="updloadFile($event, 'additional')" accept="image/x-png,image/jpeg">
+						<div class="layer"></div><br>
+						<mat-form-field class="full-width">
+							<textarea matInput placeholder="Ваш комментарий" [(ngModel)]="user.documents.additional.userComment"></textarea>
+						</mat-form-field>
+				</mat-expansion-panel>
+
+		</mat-accordion>
+	</div>
+	<div class="layer"></div>
+	<button *ngIf="user.documents.status === 'edit' || user.documents.status === 'new'" mat-raised-button (click)="send()">Отправить на рассмотрение</button>
+</div>

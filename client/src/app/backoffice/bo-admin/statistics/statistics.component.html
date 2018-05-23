@@ -1,0 +1,18 @@
+<p>
+  Статистика
+</p>
+<p>
+  Всего пользователей: {{stats?.all}}
+</p>
+<p>
+  Заявок на редактировании: {{stats?.edit}}
+</p>
+<p>
+  Заявок на рассмотрении: {{stats?.send}}
+</p>
+<p>
+  Принято заявок: {{stats?.accepted}} - {{stats?.accepted / (stats?.accepted + stats?.declined) * 100}}%
+</p>
+<p>
+  Отклонено заявок: {{stats?.declined}} - {{stats?.declined / (stats?.accepted + stats?.declined) * 100}}%
+</p>

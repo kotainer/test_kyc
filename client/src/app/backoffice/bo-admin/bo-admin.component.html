@@ -1,0 +1,14 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <a routerLink="/backoffice/admin/list" (click)="sidenav.toggle()">Список заявок</a><br>
+    <a routerLink="/backoffice/admin/statistics" (click)="sidenav.toggle()">Статистика</a><br>
+    <a (click)="logOut()">Выход</a>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p><button mat-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button></p>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<router-outlet></router-outlet>

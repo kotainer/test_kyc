@@ -1,0 +1,39 @@
+.navbar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+}
+
+.navbar-item {
+    display: flex;
+    width: 30%;
+    margin-left: 5%;
+}
+
+.navbar-item a {
+    margin-top: 10px;
+}
+
+img {
+    max-width: 500px;
+    margin: auto;
+}
+
+.image-container {
+    height: 100%;
+    margin: 20px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.decline {
+    background-color: red;
+}
+
+.comment {
+    display: flex;
+    color: red;
+    margin-bottom: 10px;
+}

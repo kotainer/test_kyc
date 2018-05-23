@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 const config = require('config');
 const uuid = require('uuid');
 mongoose.Promise = global.Promise;
-mongoose.connect(config.get('db'), {useMongoClient: true});
+mongoose.connect(config.get('db'));
 
 import * as User from '../models/user';
 
 const baseInitiDB = async () => {
     // DEFAULT USERS
-    let mlmUser = await User.findOne({login: 'mlm'});
-    if (!mlmUser) {
-        mlmUser = await User.create({
+    let admin = await User.findOne({login: 'admin'});
+    if (!admin) {
+        admin = await User.create({
             _id: uuid(),
-            login: 'mlm',
-            password: 'mlm_bug',
-            email: 'mlm',
+            login: 'admin',
+            password: 'admin',
+            isAdmin: true
         });
     }
 
@@ -23,10 +23,21 @@ const baseInitiDB = async () => {
             _id: uuid(),
             login: 'user',
             password: 'user',
-            email: 'user',
-            parent: mlmUser._id,
         });
     }
+    
+    const count = 10;
+
+    for (let i = 0; i <= count; i++) {
+        if (!await User.findOne({login: `user${i}`})) {
+            await User.create({
+                _id: uuid(),
+                login: `user${i}`,
+                password: `user${i}`,
+            });
+        }
+    }
+    
     // ----------------------------------
 
     mongoose.connection.close();

@@ -5,10 +5,8 @@ const ExtractJwt = require('passport-jwt').ExtractJwt; // авторизация
 
 const jwtsecret = 'LKlkaerKawfCashnprettygoodsecurekey'; // ключ для подписи JWT
 const jwt = require('jsonwebtoken'); // аутентификация  по JWT для hhtp
-// const socketioJwt = require('socketio-jwt'); // аутентификация  по JWT для socket.io
 
 import * as User from '../models/user';
-import * as Admin from '../models/admin';
 
 import * as moment from 'moment';
 
@@ -19,17 +17,9 @@ passport.use(new LocalStrategy({
   session: false
 },
   function (req, login, password, done) {
-    let model: any;
-    if (req.body.type && req.body.type === 'admin') {
-      model = Admin;
-    } else {
-      model = User;
-    }
-
-    login = login.replace(/-/g, '');
     login = login.trim();
 
-    model.findOne({ login }, (err, user) => {
+    User.findOne({ login }, (err, user) => {
       if (err) {
         return done(err);
       }
@@ -59,13 +49,7 @@ passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
     return done(null, false);
   }
 
-  if (payload.isAdmin) {
-    model = Admin;
-  } else {
-    model = User;
-  }
-
-  model.findById(payload.id, '-passwordHash -salt -siteBalances -parent', (err, user) => {
+  User.findById(payload.id, '-passwordHash -salt', (err, user) => {
     if (err) {
       return done(err);
     }
@@ -75,7 +59,6 @@ passport.use(new JwtStrategy(jwtOptions, (payload, done) => {
       return done(null, false);
     }
   });
-})
-);
+}));
 
 export default passport;

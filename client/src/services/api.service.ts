@@ -10,7 +10,7 @@ export class ApiService {
         private http: HttpClient
     ) { }
 
-    public create(path: string, data: object, token: string = '', ): Observable<any> {
+    public create(path: string, data: object, token: string = ''): Observable<any> {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `${token}`
@@ -35,5 +35,17 @@ export class ApiService {
         });
 
         return this.http.put(`${environment.apiPath}${environment.apiVer}/${path}${id}`, data, { headers });
+    }
+
+    public upload(path: string, file: File, field: string, token: string = ''): Observable<any> {
+        const headers = new HttpHeaders({
+            // 'Content-Type': 'multipart/form-data',
+            'Authorization': `${token}`
+        });
+
+        const formData: FormData = new FormData();
+        formData.append(field, file, file.name);
+
+        return this.http.post(`${environment.apiPath}${environment.apiVer}/${path}`, formData, { headers });
     }
 }

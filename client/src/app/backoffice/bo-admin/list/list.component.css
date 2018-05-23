@@ -1,0 +1,12 @@
+button {
+    margin-right: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.send {
+    background-color: skyblue;
+    height: 10px;
+}

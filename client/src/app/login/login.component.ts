@@ -1,16 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
-
+export class LoginComponent implements OnInit {
   public loginInfo = {
     login: '',
     password: ''
@@ -22,26 +19,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const existToken = localStorage.getItem('clientToken');
+    const existToken = localStorage.getItem('token');
     if (existToken) {
-      this.appComponent.token = existToken;
-      return this.router.navigate(['/backoffice/']);
+      this.appComponent.dataService.accessToken$.next(existToken);
+      return this.router.navigate(['/backoffice']);
     }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions
-      .forEach(s => s.unsubscribe());
   }
 
   public login() {
     this.appComponent.api('create', 'auth/login', this.loginInfo).subscribe(
       res => {
         if (res) {
-          localStorage.setItem('clientToken', res.data.token);
+          localStorage.setItem('token', res.data.token);
           this.appComponent.dataService.user$.next(res.data.user);
           this.appComponent.dataService.accessToken$.next(res.data.token);
-          return this.router.navigate(['/backoffice/profile']);
+          return this.router.navigate(['/backoffice']);
         }
       }
     );

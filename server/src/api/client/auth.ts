@@ -11,16 +11,14 @@ export class Auth {
         await passport.authenticate('local', function (err, user) {
             if (!user) {
                 throw {
-                    message: 'Неверный логин и пароль',
+                    message: 'Неверный логин или пароль',
                     code: 401
                 };
 
             } else {
                 const payload = {
                     id: user._id,
-                    login: user.login,
-                    email: user.email,
-                    isAdmin: false,
+                    isAdmin: user.isAdmin,
                     expireAt: moment().add(50, 'minutes'),
                 };
                 const token = jwt.sign(payload, jwtsecret);
@@ -31,7 +29,9 @@ export class Auth {
                         token: 'JWT ' + token,
                         user: {
                             _id: user._id,
-                            login: user.login
+                            login: user.login,
+                            isAdmin: user.isAdmin,
+                            isVerify: user.isVerify
                         }
                     }
                 };

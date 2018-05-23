@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as User from '../models/user';
 
 const notAuthMethod = [
-    '/api/clients/v1/auth/login',
+    '/api/v1/auth/login',
 ];
 
 const doubleUsedMethod = [];
@@ -80,7 +80,7 @@ export default async (ctx, next) => {
             };
         }
 
-        ctx.user = await User.findById(tokenInfo.id);
+        ctx.user = await User.findById(tokenInfo.id, '-passwordHash -salt');
     }
 
     await next();

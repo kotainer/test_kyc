@@ -1,4 +1,3 @@
 {
-  "db": "mongodb://localhost/cashandback",
-  "oldSalt": "EBUSHKIVOROBUSHKI"
+  "db": "mongodb://localhost/kyc"
 }

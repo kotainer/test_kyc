@@ -16,39 +16,21 @@ export default {
             'name',
             'surname',
             'lastname',
+            'documents',
+            'isVerify'
         ],
         searchOr: [],
-        sort: '-createdAt',
-        countLimit: 20,
-        filePath: 'user'
-    },
-
-    userForAdmin: {
-        populate: '',
-        fields: [
-            'login',
-            'name',
-            'surname',
-            'lastName',
-        ],
-        searchOr: [
-            'name',
-            'surname',
-            'login',
-            'email',
-            'phone'
-        ],
-        sort: '-createdAt',
+        sort: '-updatedAt',
+        extendQuery: {
+            isAdmin: false,
+            isVerify: false,
+            'documents.status': {
+                $in: [
+                    'send'
+                ]
+            }
+        },
         countLimit: 10,
         filePath: 'user'
-    },
-
-    admin: {
-        populate: '',
-        fields: '',
-        searchOr: [],
-        sort: '',
-        countLimit: 10,
-        filePath: 'admin'
     },
 };

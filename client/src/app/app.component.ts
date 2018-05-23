@@ -41,9 +41,17 @@ export class AppComponent {
       accessToken => {
         if (accessToken) {
           this.token = accessToken;
+          this.getMyUser();
         }
       }
     );
+
+    // const existToken = localStorage.getItem('token');
+    // if (existToken) {
+    //   dataService.accessToken$.next(existToken);
+    // } else {
+    //   this.router.navigate(['/login']);
+    // }
   }
 
   public api(...args): Observable<any> {
@@ -71,5 +79,13 @@ export class AppComponent {
     localStorage.clear();
     this.dataService.user$.next(null);
     return this.router.navigate(['/']);
+  }
+
+  public getMyUser() {
+    this.api('get', 'user', '', this.token).subscribe(
+      res => {
+        this.dataService.user$.next(res.data);
+      }
+    );
   }
 }
