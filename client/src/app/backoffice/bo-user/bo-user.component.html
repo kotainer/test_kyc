@@ -1,12 +1,12 @@
 <div class="navbar" [ngStyle]="{'background-color': getColorNav(user.isVerify)}">
   <div class="navbar-item">
-    <a>Имя: {{user?.name}} {{user?.surname}}</a>
+    Имя: {{user?.name}} {{user?.surname}}
   </div>
   <div class="navbar-item">
-	<a>Заявка: {{statuses[user.documents.status]}}</a>
+		Заявка: {{statuses[user.documents.status]}}
   </div>
   <div class="navbar-item">
-    <a>Стутус: {{user?.isVerify ? 'Подтвержден' : 'Не подтвержден'}}</a>
+    Статус: {{user?.isVerify ? 'Подтвержден' : 'Не подтвержден'}}
 	</div>
 	<a (click)="logOut()">Выход</a>
 </div>
@@ -20,11 +20,11 @@
 						Личная информация
 					</mat-panel-title>
 				</mat-expansion-panel-header>
-					
-				<mat-form-field style="margin-right: 20px;">
+				<div class="layer"></div>
+				<mat-form-field>
 				<input matInput placeholder="Имя" [(ngModel)]="user.name">
 				</mat-form-field>
-		
+				<div class="layer"></div>
 				<mat-form-field>
 				<input matInput placeholder="Фамилия" [(ngModel)]="user.surname">
 				</mat-form-field>

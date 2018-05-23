@@ -1,25 +1,27 @@
-<div class="loginbox">
-  <div class="logintop">
-    <H3 class="logintitle">Вход</H3>
-  </div>
-  
-  <div class="loginbody">
-  <div class="loginlogo">
-      <img src="https://ekyc.ucoonline.in/UcoOtpService/wp-content/uploads/2014/07/kyc-ekyc.png"alt="logo">
-  </div>
-    
-  <div class="loginbody">
-    <mat-form-field class="full-width">
-      <input matInput type="text" placeholder="Логин" [(ngModel)]="loginInfo.login">
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <input matInput type="password"  placeholder="Пароль" [(ngModel)]="loginInfo.password">
-    </mat-form-field>
-  </div>
-    
-  </div>
-    <div class="loginbottom">
-      <button  mat-raised-button class="loginbutton" (click)="login()">Войти</button>
+<div class="login-page">
+  <div class="login-box">
+    <div class="login-top">
+      <H3 class="login-title">Вход</H3>
     </div>
+  
+    <div class="login-body">
+      <div class="login-logo">
+        <img src="https://ekyc.ucoonline.in/UcoOtpService/wp-content/uploads/2014/07/kyc-ekyc.png" alt="logo">
+      </div>
+  
+      <div class="login-body">
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="Логин" [(ngModel)]="loginInfo.login">
+        </mat-form-field>
+  
+        <mat-form-field class="full-width">
+          <input matInput type="password" placeholder="Пароль" [(ngModel)]="loginInfo.password">
+        </mat-form-field>
+      </div>
+  
+    </div>
+    <div class="login-bottom">
+      <button mat-raised-button class="login-button" (click)="login()">Войти</button>
+    </div>
+  </div>
 </div>

@@ -1,11 +1,13 @@
 button {
     margin-right: 10px;
 }
-
-.full-width {
-    width: 100%;
+img {
+    display: block;
+    margin: auto;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
 }
-
 .send {
     background-color: skyblue;
     height: 10px;
