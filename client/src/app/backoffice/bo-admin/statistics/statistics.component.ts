@@ -11,7 +11,12 @@ import { Subscription } from 'rxjs';
 export class StatisticsComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   public stats = {
-
+    new: 0,
+    send: 0,
+    edit: 0,
+    accepted: 0,
+    declined: 0,
+    all: 0
   };
 
   constructor(
