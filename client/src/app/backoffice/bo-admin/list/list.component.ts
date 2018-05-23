@@ -46,15 +46,11 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   public saveChanges(item) {
-    if (item.documents.status !== 'accept' || item.documents.status !== 'decline') {
-      item.documents.status = 'edit';
-    }
-
     this.appComponent.api('update', 'admin/users/requests/', item._id, this.appComponent.token, item).subscribe(
       res => {
         if (res) {
           this.appComponent.notify.success('Уведомление', 'Данные успешно обновлены');
-          this.getList(this.skip, this.limit, true);
+          // this.getList(this.skip, this.limit, true);
         }
       }
     );
