@@ -33,4 +33,12 @@ export class StatisticsComponent implements OnInit {
     );
   }
 
+  public checkSummNumber(n1, n2) {
+    if (n1 + n2 === 0) {
+      return 1;
+    }
+
+    return n1 + n2;
+  }
+
 }

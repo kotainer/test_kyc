@@ -11,8 +11,8 @@
   Заявок на рассмотрении: {{stats?.send}}
 </p>
 <p>
-  Принято заявок: {{stats?.accepted}} - {{stats?.accepted / (stats?.accepted + stats?.declined) * 100}}%
+  Принято заявок: {{stats?.accepted}} - {{stats?.accepted / checkSummNumber(stats?.accepted, stats?.declined) * 100}}%
 </p>
 <p>
-  Отклонено заявок: {{stats?.declined}} - {{stats?.declined / (stats?.accepted + stats?.declined) * 100}}%
+  Отклонено заявок: {{stats?.declined}} - {{stats?.declined / checkSummNumber(stats?.accepted, stats?.declined) * 100}}%
 </p>
